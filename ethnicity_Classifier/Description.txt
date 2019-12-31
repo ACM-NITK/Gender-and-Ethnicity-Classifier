@@ -1,0 +1,7 @@
+For this classification 
+1. Reading dataset ,shuffling and coverting ethnicity classes to categories is done
+2. Images are converted to vectors and normalized
+3. dataset is divided into train,validation and test.
+4. CNN model with CONV-POOL-CONV-POOL-FC architecture along with RELu activation and dropout
+5. Using Adam optimization model is trained
+6. Training Accuracy -87% , Validation accuracy-80% and test accuracy -80% is obtained
