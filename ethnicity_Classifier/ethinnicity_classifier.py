@@ -18,23 +18,25 @@ import pickle
 import tqdm
 
 
-model=Sequential()
-model.add(Conv2D(64, (7, 7), padding="same", activation="relu", input_shape=(128, 128, 3)))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+# model=Sequential()
+# model.add(Conv2D(64, (7, 7), padding="same", activation="relu", input_shape=(128, 128, 3)))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.50))
 
-model.add(Conv2D(32, (5, 5), padding="same", strides =(1, 1), activation="relu"))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Conv2D(32, (5, 5), padding="same", strides =(1, 1), activation="relu"))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
 
-model.add(Conv2D(32, (3, 3), padding="same", strides =(2, 2), activation="relu"))
-model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Conv2D(32, (3, 3), padding="same", strides =(2, 2), activation="relu"))
+# model.add(MaxPooling2D(pool_size=(2, 2)))
+# model.add(Dropout(0.50))
 
-model.add(Flatten()) 
-model.add(Dense(526, activation ='relu')) 
-model.add(Dense(5, activation ='softmax')) 
+# model.add(Flatten()) 
+# model.add(Dense(526, activation ='relu')) 
+# model.add(Dense(5, activation ='softmax')) 
 
-model.compile(loss = keras.losses.categorical_crossentropy, 
-              optimizer = keras.optimizers.SGD(lr = 0.01), 
-              metrics =['accuracy']) 
+# model.compile(loss = keras.losses.categorical_crossentropy, 
+#               optimizer = keras.optimizers.SGD(lr = 0.01), 
+#               metrics =['accuracy']) 
 
 arr=os.listdir("part2")
 shuffle(arr)
@@ -70,11 +72,25 @@ Y_train=Y[:7000]
 Y_validate=Y[7000:8500]
 Y_test=Y[8500:]
 
-print(model.summary())
+#print(model.summary())
 
-model.fit(X_train,Y_train,batch_size=32,epochs=3,validation_data=(X_validate,Y_validate))
-r=model.evaluate(X_test, Y_test, verbose=0)
-print(r[1])
+#model.fit(X_train,Y_train,batch_size=32,epochs=3,validation_data=(X_validate,Y_validate))
+# r=model.evaluate(X_test, Y_test, verbose=0)
+# print(r[1])
+file="9_0_1_20170113175830459.jpg"
+from PIL import Image
+im =Image.open(file)
+im
+X_data=[]
+face = cv2.imread(file)
+face = cv2.resize(face, (128, 128) )
+X_data.append(face)
+np.squeeze(X_data)
+X = X.astype('float32')
+X /= 255
+loaded_model = pickle.load(open("weight.pkl", 'rb'))
+y=loaded_model.predict(X_data)
+print(y)
 
 
 
