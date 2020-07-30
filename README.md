@@ -1,1 +1,1 @@
-# Image-Generation-by-GANs
+# Gender and ethnicity classifier using CNNs
